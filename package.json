@@ -1,17 +1,19 @@
 {
   "name": "movies-explorer-api",
   "version": "1.0.0",
-  "description": "Diplom",
+  "description": "Diplom Yandex-practikum",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreiZhura/movies-explorer-api.git"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
-  }
+  "author": "Andrew Zhuravlev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreiZhura/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/AndreiZhura/movies-explorer-api#readme"
 }
