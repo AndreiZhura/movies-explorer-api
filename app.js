@@ -1,20 +1,20 @@
-const mongoose = require('mongoose');
 const express = require('express');
-const bodyParser = require('body-parser');
-// Слушаем 3000 порт
+const userRouters = require('./routers/users');
 const { PORT = 3000 } = process.env;
 
 const app = express();
 
-// подключаемся к серверу mongo
-mongoose.set('strictQuery',false);
-mongoose.connect('mongodb://localhost:27017/diplomdb');
+app.use((req, res, next) => {
+  req.user = {
+    _id: '636e4e352e8574d451380e0e',
+  };
 
+  next();
+});
 
-app.use(bodyParser.json()); // для собирания JSON-формата
-app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
+app.use('/', userRouters);
 
 app.listen(PORT, () => {
-    // Если всё работает, консоль покажет, какой порт приложение слушает
-    console.log(`App listening on port ${PORT}`)
+  // Если всё работает, консоль покажет, какой порт приложение слушает
+  console.log(`App listening on port ${PORT}`)
 })
