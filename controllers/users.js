@@ -1,31 +1,21 @@
-const user = require('../models/user');
 const users = require('../models/user');
 
-module.exports.getUserMe = (req , res , next) => {
+module.exports.getUserMe = (req, res, next) => {
 
   users.findById(req.user)
-  .then((user)=>{
-    console.log('Test Users')
-  })
-  .catch((err)=>{
-    console.log('error');
-  })
+    .then((user) => {
+      console.log('Test Users')
+    })
+    .catch((err) => {
+      console.log('error');
+    })
 }
 
-module.exports.createUsers = ( req, res, next) => {
-   const { email, password, name } = req.body;
+module.exports.createUsers = (req, res, next) => {
 
-   user.create({ email, password, name })
-   .then((user) => res.send({ data: user }))
-   .catch((err) => {
-     if (err.name === 'ValidationError') {
-       return res
-         .status(ERROR_CODE)
-         .send({ message: 'Ошибка обработки данных' });
-     }
+  const { email, password, name} = req.body;
 
-     return res
-       .status(INTERNAL_SERVER_ERROR)
-       .send({ message: 'Ошибка по умолчанию.' });
-   });
+  users.create({ email, password, name})
+  .then(user => res.send({data: user }))
+  .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 }
