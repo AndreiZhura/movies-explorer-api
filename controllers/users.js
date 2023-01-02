@@ -1,21 +1,29 @@
+const bcrypt = require('bcryptjs');
 const users = require('../models/user');
 
 module.exports.getUserMe = (req, res, next) => {
 
   users.findById(req.user)
     .then((user) => {
-      console.log('Test Users')
+      if (!user) {
+        res.send('данного пользователя не существует')
+      }
+      return res.status(200).send({ data: user });
     })
-    .catch((err) => {
-      console.log('error');
-    })
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 }
 
 module.exports.createUsers = (req, res, next) => {
 
-  const { email, password, name} = req.body;
+  const { email, name } = req.body;
 
-  users.create({ email, password, name})
-  .then(user => res.send({data: user }))
-  .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+  bcrypt.hash(req.body.password, 10)
+  .then(hash => users.create({
+    email:email,
+    password: hash,
+    name: name,
+  }))
+
+    .then(user => res.send({ data: user }))
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 }
