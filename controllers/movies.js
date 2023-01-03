@@ -41,3 +41,14 @@ module.exports.createMovies = ( req, res ) => {
       .send({ message: err })
   })
 }
+
+module.exports.getMovie = ( req, res ) => {
+  Movie.find({})
+  .then((movie) => {
+    console.log(req.body);
+    res.status(200).send({ data: movie})
+  })
+  .catch((err) => {
+    res.status(500).send({message: err})
+  })
+}

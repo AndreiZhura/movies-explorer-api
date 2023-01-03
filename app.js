@@ -2,7 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const userRouter = require('./routers/users')
+const userRouter = require('./routers/users');
+const movieRouters = require('./routers/movies');
 
 
 const { PORT = 3000, BASE_PATH } = process.env;
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', userRouter);
+app.use('/', movieRouters )
 
 
 
