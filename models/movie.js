@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const isEmail = require('validator/lib/isEmail');
 
 const movieScheme = new mongoose.Schema({
    country:{

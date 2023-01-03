@@ -21,7 +21,6 @@ module.exports.createMovies = (req, res, next) => {
     movieId,
     nameRU,
     nameEN,
-    _id
   } = req.body;
 
 
@@ -48,9 +47,6 @@ module.exports.createMovies = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  const { movieId } = req.params;
-  Movie.findById(movieId)
-    .then((movie) => {
-      console.log(movie)
-    });
+  const { name, link } = req.body;
+  console.log(req.body);
 };
