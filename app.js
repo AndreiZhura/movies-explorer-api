@@ -2,8 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const userRouters = require('./routers/users');
-const movieRouters = require('./routers/movies');
+const userRouter = require('./routers/users')
+
 
 const { PORT = 3000, BASE_PATH } = process.env;
 const app = express();
@@ -16,14 +16,14 @@ mongoose.set('strictQuery', true);
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '63aea22378a036beff3dcab3' // вставьте сюда _id созданного в предыдущем пункте пользователя
+    _id: '63af423459335aad05eb2780' // вставьте сюда _id созданного в предыдущем пункте пользователя
   };
 
   next();
 });
 
-app.use('/', userRouters);
-app.use('/', movieRouters);
+app.use('/', userRouter);
+
 
 
 app.listen(PORT, () => {

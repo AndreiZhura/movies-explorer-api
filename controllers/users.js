@@ -1,16 +1,70 @@
 
-const user = require('../models/user');
+const User = require('../models/user');
 
-module.exports.createUser = ( req, res, next) => {
-  const { email, password, name} = req.body;
-  user.create({email, password, name})
-  .then((users) =>{ res.send(users)})
-  .catch((err) => { res.send(err)})
+module.exports.getUsers = (req, res) => {
+  User.find({})
+    .then((users) => {
+      res.status(200)
+        .send({ data: users })
+
+    })
+    .catch((err) => {
+      res.status(500)
+        .send({ message: err })
+    })
 }
 
-module.exports.getUserMe = (req, res, next) => {
+module.exports.getUsersId = ( req, res ) => {
+   User.findById(req.params._id)
+   .then((users) => {
+    res.status(200)
+      .send({ data: users })
 
-  user.findById(req.user)
+  })
+  .catch((err) => {
+    res.status(500)
+      .send({ message: err })
+  })
+}
+
+module.exports.createUsers = (req, res) => {
+
+  const { email, password, name } = req.body;
+
+  User.create({ email, password, name })
+    .then((user) => {
+      res.send({ data: user })
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err })
+    })
+
+}
+
+module.exports.deleteUsers = ( req, res ) => {
+  User.findByIdAndRemove(req.params._id)
+  .then((user) => {
+    res.send({ message: "Пользователь удален"})
+  })
+  .catch((err) => {
+    res.status(500).send({ message: err })
+  })
+
+}
+
+module.exports.updateUsers = (req, res ) => {
+  const { email,  name } = req.body;
+  User.findByIdAndUpdate(req.params._id, { email,  name }, { new: true, runValidators: true },)
+  .then((user) => {
+    res.send({ data: user })
+  })
+  .catch((err) => {
+    res.status(500).send({ message: err })
+  })
+}
+
+module.exports.getUsersMe = (req, res, next) => {
+  User.findById(req.user)
     .then((user) => {
       if (!user) {
         res.send('данного пользователя не существует')
@@ -18,24 +72,4 @@ module.exports.getUserMe = (req, res, next) => {
       return res.status(200).send({ data: user });
     })
     .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
-}
-
-module.exports.updateUserMe = (req, res, next) => {
-
-  const { name, email } = req.body;
-
-  user.findByIdAndUpdate(req.params._id, { name, email }, {
-    new: true, // обработчик then получит на вход обновлённую запись
-    runValidators: true, // данные будут валидированы перед изменением
-  })
-    .then(user => res.send({ data: user }))
-    .catch(err => res.send({ message: err }));
-}
-
-module.exports.getUsers = ( req,res, next) => {
-
-    user.find({"_id": "63aea22378a036beff3dcab3"})
-    .then((users) => {
-      console.log(users);
-      res.send(users)})
 }
