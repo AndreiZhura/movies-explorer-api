@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const isEmail = require('validator/lib/isEmail');
 
 const movieScheme = new mongoose.Schema({
    country:{
@@ -41,11 +44,11 @@ const movieScheme = new mongoose.Schema({
     validate: { validator: (v) => validator.isURL(v) },
    },
    owner: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
    },
    movieId:{
-    type: String,
+    type: Number,
     required: true,
    },
    nameRU:{

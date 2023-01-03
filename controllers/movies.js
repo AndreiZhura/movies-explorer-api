@@ -21,7 +21,9 @@ module.exports.createMovies = (req, res, next) => {
     movieId,
     nameRU,
     nameEN,
+    _id
   } = req.body;
+
 
   const owner = req.user._id;
 
@@ -39,12 +41,16 @@ module.exports.createMovies = (req, res, next) => {
     nameRU,
     nameEN,
   })
-  .then((data) => res.status(200).send(data))
-  .catch((err) => res.status(500).send(err))
+    .then((movie) => {
+      res.status(200).send(movie)
+    })
+    .catch((err) => res.status(500).send(err))
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params._id).then((movie) => {
-    movie.remove().then(() => res.status(200).send(movie));
-  });
+  const { movieId } = req.params;
+  Movie.findById(movieId)
+    .then((movie) => {
+      console.log(movie)
+    });
 };
