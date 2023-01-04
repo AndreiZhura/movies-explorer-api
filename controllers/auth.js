@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем модуль jsonwebtoken
 const Auth = require('../models/user');
 
+
 module.exports.createUsers = (req, res) => {
 
   const { email, password, name } = req.body;
@@ -13,13 +14,13 @@ module.exports.createUsers = (req, res) => {
         password: hash,
         name
       })
-      .then((user) => {
-        res.send({
-          _id: user._id,
-          email: user.email,
-          name: user.name,
+        .then((user) => {
+          res.send({
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+          })
         })
-      })
     })
     .catch((err) => {
       res.status(500).send({ message: err })
@@ -27,18 +28,16 @@ module.exports.createUsers = (req, res) => {
 
 }
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
-  Auth.findUserByCredentials(email, password)
+  return Auth.findUserByCredentials(email, password)
     .then((user) => {
-      // аутентификация успешна!
-    /*  const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });*/
-      res.send({ user : user });
+      // напишите код здесь
+      const token = jwt.sign({ _id: user._id }, SECRET_KEY_JWT, { expiresIn: '7d' });
+      res.send({ token });
     })
     .catch((err) => {
-      res
-        .status(401)
-        .send({ message: err.message });
+      res.status(404).send({ message: "rfrf" })
     });
 };
