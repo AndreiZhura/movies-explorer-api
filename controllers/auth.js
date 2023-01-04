@@ -1,22 +1,46 @@
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const Auth = require('../models/user');
 
+/*
 module.exports.createUsers = (req, res) => {
+
+  const { email, password, name } = req.body;
+
+  Auth.create({ email, password, name })
+    .then((user) => {
+      res.send({ data: user })
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err })
+    })
+
+}*/
+
+module.exports.createUsers = (req, res) => {
+
+  const { email, password, name } = req.body;
+
+  Auth.findOne({ email })
+
+    .then((user) => {
+      if (user) {
+        res.status(500).send({ message: "Такой пользователь уже сущетсвует" })
+      }
+      else {
+        return bcrypt.hash(password);
+      }
+    })
 
   bcrypt.hash(req.body.password, 10)
     .then((hash) => {
       Auth.create({
-        email: req.body.email,
+        email,
         password: hash,
-        name:req.body.name
+        name
       })
     })
     .then((user) => {
-      res.send({
-         email: user.email,
-         name: user.name,
-         _id: user._id,
-       })
+      res.send({ data: user })
     })
     .catch((err) => {
       res.status(500).send({ message: err })
