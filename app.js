@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const authRouters = require('./routers/auth');
 const userRouter = require('./routers/users');
 const movieRouters = require('./routers/movies');
 
@@ -23,8 +24,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/',authRouters);
 app.use('/', userRouter);
-app.use('/', movieRouters )
+app.use('/', movieRouters);
 
 
 
