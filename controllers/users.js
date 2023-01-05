@@ -4,11 +4,11 @@ const User = require('../models/user');
 module.exports.updateUsers = (req, res) => {
   const { email, name } = req.body;
   User.findByIdAndUpdate(req.params._id, { email, name }, { new: true, runValidators: true },)
-  .then((cards) => {
-    if (!cards) {
+  .then((user) => {
+    if (!user) {
       throw new NotFoundError('Данного пользователя не существует');
     }
-    return res.status(200).send({ data: cards });
+    return res.status(200).send({ data: user });
   })
   .catch((err) => {
     if (err.name === 'ValidationError') {

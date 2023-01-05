@@ -63,13 +63,13 @@ module.exports.getMovie = (req, res) => {
 
 module.exports.deleteMovie = (req, res) => {
   Movie.findByIdAndDelete(req.params._id)
-  .then((cards) => {
-    if (!cards) {
-      throw new NotFoundError('Данной карточки не существует');
-    } else if (!cards.owner.equals(req.user._id)) {
-      throw new Forbidden('попытка удалить карточку другово пользователя');
+  .then((movie) => {
+    if (!movie) {
+      throw new NotFoundError('Данного фильма не существует');
+    } else if (!movie.owner.equals(req.user._id)) {
+      throw new Forbidden('попытка удалить фильм другово пользователя');
     } else {
-      return cards.remove().then(() => res.status(200).send(cards));
+      return movie.remove().then(() => res.status(200).send(movie));
     }
   })
   .catch((err) => {
