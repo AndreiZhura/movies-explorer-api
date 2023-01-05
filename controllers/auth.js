@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs"); // импортируем bcrypt
 const jwt = require("jsonwebtoken"); // импортируем модуль jsonwebtoken
 const Auth = require("../models/user");
+const { SALT_ROUND, SECRET_KEY_JWT } = require('../constants/constants');
 const ErrorCode = require('../errors/ErrorCode');
 const Conflict = require('../errors/Conflict');
 
@@ -14,7 +15,6 @@ module.exports.createUser = (req, res, next) => {
 
   Auth
     .findOne({ email })
-    // eslint-disable-next-line consistent-return
     .then((user) => {
       if (user) {
         throw new Conflict('Такой пользователь уже существует!');
@@ -43,6 +43,7 @@ module.exports.createUser = (req, res, next) => {
       }
     });
 };
+
 // проверяет переданные в теле почту и пароль
 // и возвращает JWT
 module.exports.login = (req, res) => {
@@ -52,12 +53,12 @@ module.exports.login = (req, res) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        "some-secret-key",
+        SECRET_KEY_JWT,
         { expiresIn: "7d" } // токен будет просрочен через 7 дней после создания
       );
       res.send({ token });
     })
-    .catch((err) => {
+      .catch((err) => {
       next(err);
     });
 };
