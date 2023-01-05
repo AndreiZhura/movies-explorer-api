@@ -1,68 +1,67 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-
 const movieScheme = new mongoose.Schema({
-   country:{
+  country: {
     type: String,
     required: true,
     minlength: 2,
     maxlength: 30,
-   },
-   director:{
+  },
+  director: {
     type: String,
     required: true,
     minlength: 2,
     maxlength: 30,
-   },
-   duration:{
+  },
+  duration: {
     type: Number,
     minlength: 2,
     maxlength: 30,
-   },
-   year: {
+  },
+  year: {
     type: Number,
     minlength: 4,
     maxlength: 4,
-   },
-   description: {
+  },
+  description: {
     type: String,
     minlength: 2,
     maxlength: 1000,
-   },
-   image:{
+  },
+  image: {
     type: String,
     validate: { validator: (v) => validator.isURL(v) },
-   },
-   trailerLink: {
+  },
+  trailerLink: {
     type: String,
     validate: { validator: (v) => validator.isURL(v) },
-   },
-   thumbnail:{
+  },
+  thumbnail: {
     type: String,
     validate: { validator: (v) => validator.isURL(v) },
-   },
-   owner: {
+  },
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users',
-    required: true
-   },
-   movieId:{
+    required: true,
+  },
+  movieId: {
     type: Number,
     required: true,
-   },
-   nameRU:{
+  },
+  nameRU: {
     type: String,
     required: true,
     minlength: 2,
     maxlength: 30,
-   },
-   nameEN:{
+  },
+  nameEN: {
     type: String,
     required: true,
     minlength: 2,
     maxlength: 30,
-   }
+  },
 });
 
 module.exports = mongoose.model('movie', movieScheme);

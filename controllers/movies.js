@@ -1,6 +1,6 @@
 const Movie = require('../models/movie');
 
-module.exports.createMovies = ( req, res ) => {
+module.exports.createMovies = (req, res) => {
   const owner = req.user._id;
 
   const {
@@ -31,37 +31,37 @@ module.exports.createMovies = ( req, res ) => {
     nameRU,
     nameEN,
   })
-  .then((movie) => {
-    res.status(200)
-      .send({ data: movie })
-  })
+    .then((movie) => {
+      res.status(200)
+        .send({ data: movie })
+    })
 
-  .catch((err) => {
-    res.status(500)
-      .send({ message: err })
-  })
+    .catch((err) => {
+      res.status(500)
+        .send({ message: err })
+    })
 }
 
-module.exports.getMovie = ( req, res ) => {
+module.exports.getMovie = (req, res) => {
   Movie.find({})
-  .then((movie) => {
+    .then((movie) => {
 
-    res.status(200).send({ data: movie})
-  })
-  .catch((err) => {
-    res.status(500).send({message: err})
-  })
+      res.status(200).send({ data: movie })
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err })
+    })
 }
 
-module.exports.deleteMovie = ( req, res) => {
-   Movie.findByIdAndDelete(req.params._id)
-   .then((movie) => {
-    res.status(200)
-      .send({ data: movie })
-  })
+module.exports.deleteMovie = (req, res) => {
+  Movie.findByIdAndDelete(req.params._id)
+    .then((movie) => {
+      res.status(200)
+        .send({ data: movie });
+    })
 
-  .catch((err) => {
-    res.status(500)
-      .send({ message: err })
-  })
+    .catch((err) => {
+      res.status(500)
+        .send({ message: err });
+    })
 }

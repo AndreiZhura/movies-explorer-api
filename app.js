@@ -20,7 +20,7 @@ mongoose.set('strictQuery', true);
 
 
 app.use('/',authRouters);
-//app.use(auth);
+app.use(auth);
 app.use('/', userRouter);
 app.use('/', movieRouters);
 
