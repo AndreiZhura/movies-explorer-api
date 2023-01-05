@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем модуль jsonwebtoken
 const Auth = require('../models/user');
 
@@ -15,11 +14,7 @@ module.exports.createUsers = (req, res) => {
         name
       })
         .then((user) => {
-          res.send({
-            _id: user._id,
-            email: user.email,
-            name: user.name,
-          })
+          res.send(user);
         })
     })
     .catch((err) => {
@@ -28,16 +23,23 @@ module.exports.createUsers = (req, res) => {
 
 }
 
-module.exports.login = (req, res, next) => {
+
+module.exports.login = (req, res) => {
   const { email, password } = req.body;
 
   return Auth.findUserByCredentials(email, password)
     .then((user) => {
-      // напишите код здесь
-      const token = jwt.sign({ _id: user._id }, SECRET_KEY_JWT, { expiresIn: '7d' });
+      const token = jwt.sign(
+        { _id: user._id },
+        'some-secret-key',
+        { expiresIn: '7d' } // токен будет просрочен через 7 дней после создания
+      );
       res.send({ token });
     })
     .catch((err) => {
-      res.status(404).send({ message: "rfrf" })
+      // ошибка аутентификации
+      res
+        .status(401)
+        .send({ message: err.message });
     });
 };
