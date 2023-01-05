@@ -9,11 +9,23 @@ module.exports.getUsers = (req, res) => {
 
     })
     .catch((err) => {
-      next(err);
-    });
+      res.status(500)
+        .send({ message: err })
+    })
 }
 
+module.exports.getUsersId = ( req, res ) => {
+   User.findById(req.params._id)
+   .then((users) => {
+    res.status(200)
+      .send({ data: users })
 
+  })
+  .catch((err) => {
+    res.status(500)
+      .send({ message: err })
+  })
+}
 
 module.exports.deleteUsers = ( req, res ) => {
   User.findByIdAndRemove(req.params._id)
