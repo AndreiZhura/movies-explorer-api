@@ -40,9 +40,12 @@ module.exports.createMovies = (req, res) => {
     })
 
     .catch((err) => {
-      res.status(500)
-        .send({ message: err })
-    })
+      if (err.name === 'ValidationError') {
+        next(new ErrorCode('Ошибка обработки данных'));
+      } else {
+        next(err);
+      }
+    });
 }
 
 //возвращает все сохранённые текущим  пользователем фильмы
@@ -53,20 +56,27 @@ module.exports.getMovie = (req, res) => {
       res.status(200).send({ data: movie })
     })
     .catch((err) => {
-      res.status(500).send({ message: err })
-    })
+      next(err);
+    });
 }
 // удаляет сохранённый фильм по id
 
 module.exports.deleteMovie = (req, res) => {
   Movie.findByIdAndDelete(req.params._id)
-    .then((movie) => {
-      res.status(200)
-        .send({ data: movie });
-    })
-
-    .catch((err) => {
-      res.status(500)
-        .send({ message: err });
-    })
+  .then((cards) => {
+    if (!cards) {
+      throw new NotFoundError('Данной карточки не существует');
+    } else if (!cards.owner.equals(req.user._id)) {
+      throw new Forbidden('попытка удалить карточку другово пользователя');
+    } else {
+      return cards.remove().then(() => res.status(200).send(cards));
+    }
+  })
+  .catch((err) => {
+    if (err.name === 'CastError') {
+      throw new Forbidden('Ошибка обработки данных');
+    } else {
+      next(err);
+    }
+  });
 }

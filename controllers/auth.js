@@ -20,8 +20,12 @@ module.exports.createUsers = (req, res) => {
         })
     })
     .catch((err) => {
-      res.status(500).send({ message: err })
-    })
+      if (err.name === 'ValidationError') {
+        next(new ErrorCode('введены некоректные данные'));
+      } else {
+        next(err);
+      }
+    });
 
 }
 
