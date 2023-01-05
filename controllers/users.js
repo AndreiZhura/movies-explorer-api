@@ -53,6 +53,7 @@ module.exports.getUsersMe = (req, res, next) => {
   User.findById(req.user)
     .then((user) => {
       if (!user) {
+        console.log(user)
         res.send('данного пользователя не существует')
       }
       return res.status(200).send({ data: user });

@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем модуль jsonwebtoken
 const Auth = require('../models/user');
 
