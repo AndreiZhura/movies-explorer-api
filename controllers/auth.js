@@ -2,7 +2,8 @@ const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем модуль jsonwebtoken
 const Auth = require('../models/user');
 
-
+// создаёт пользователя с переданными в теле
+// email, password и name
 module.exports.createUsers = (req, res) => {
 
   const { email, password, name } = req.body;
@@ -25,6 +26,8 @@ module.exports.createUsers = (req, res) => {
 }
 
 
+// проверяет переданные в теле почту и пароль
+// и возвращает JWT
 module.exports.login = (req, res) => {
   const { email, password } = req.body;
 

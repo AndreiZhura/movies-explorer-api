@@ -1,5 +1,8 @@
 const Movie = require('../models/movie');
 
+
+//создаёт фильм с переданными в теле
+//country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
 module.exports.createMovies = (req, res) => {
   const owner = req.user._id;
 
@@ -42,6 +45,7 @@ module.exports.createMovies = (req, res) => {
     })
 }
 
+//возвращает все сохранённые текущим  пользователем фильмы
 module.exports.getMovie = (req, res) => {
   Movie.find({})
     .then((movie) => {
@@ -52,6 +56,7 @@ module.exports.getMovie = (req, res) => {
       res.status(500).send({ message: err })
     })
 }
+// удаляет сохранённый фильм по id
 
 module.exports.deleteMovie = (req, res) => {
   Movie.findByIdAndDelete(req.params._id)
