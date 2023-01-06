@@ -8,6 +8,7 @@ const movieRouters = require('./routers/movies');
 const auth  = require('./middlewares/auth');
 const { errors } = require('celebrate');
 const NotFoundError = require('./errors/NotFoundError');
+const { requestLogger, errorLogger } = require('./middlewares/logger')
 
 
 const { PORT = 3000, BASE_PATH } = process.env;
@@ -16,6 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(requestLogger);
 
 mongoose.connect('mongodb://localhost:27017/diplomdb');
 mongoose.set('strictQuery', true);
@@ -25,6 +27,10 @@ app.use('/',authRouters);
 app.use(auth);
 app.use('/', userRouter);
 app.use('/', movieRouters);
+
+app.use(errorLogger); // подключаем логгер ошибок
+
+app.use(errors()); // обработчик ошибок celebrate
 
 app.use('*', (req, res, next) => { next(new NotFoundError('Запрашиваемый ресурс не найден')); });
 app.use(errors()); // обработчик ошибок celebrate
