@@ -1,6 +1,7 @@
 const Movie = require('../models/movie');
 const NotFoundError = require('../errors/NotFoundError');
 const Forbidden = require('../errors/Forbidden');
+const ErrorCode = require('../errors/ErrorCode');
 //создаёт фильм с переданными в теле
 //country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
 module.exports.createMovies = (req, res, next) => {
