@@ -18,11 +18,11 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => {
       if (user) {
         throw new Conflict('Такой пользователь уже существует!');
-      } else {
-        return bcrypt.hash(password, SALT_ROUND);
       }
+        return bcrypt.hash(password, SALT_ROUND);
+
     })
-    .then((hash) => users.create({
+    .then((hash) => Auth.create({
       email,
       password: hash, // записываем хеш в базу
       name,
