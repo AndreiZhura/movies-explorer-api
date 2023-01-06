@@ -1,7 +1,9 @@
 const User = require('../models/user');
+const NotFoundError = require('../errors/NotFoundError');
+const ErrorCode = require('../errors/ErrorCode');
 
 
-module.exports.updateUsers = (req, res) => {
+module.exports.updateUsers = (req, res, next) => {
   const { email, name } = req.body;
   User.findByIdAndUpdate(req.params._id, { email, name }, { new: true, runValidators: true },)
   .then((user) => {
@@ -19,7 +21,7 @@ module.exports.updateUsers = (req, res) => {
   });
 };
 
-module.exports.getUsersMe = (req, res) => {
+module.exports.getUsersMe = (req, res, next) => {
   User.findById(req.user)
   .then((user) => {
     if (!user) {

@@ -1,9 +1,9 @@
 const Movie = require('../models/movie');
-
-
+const NotFoundError = require('../errors/NotFoundError');
+const Forbidden = require('../errors/Forbidden');
 //создаёт фильм с переданными в теле
 //country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
-module.exports.createMovies = (req, res) => {
+module.exports.createMovies = (req, res, next) => {
   const owner = req.user._id;
 
   const {
@@ -49,7 +49,7 @@ module.exports.createMovies = (req, res) => {
 }
 
 //возвращает все сохранённые текущим  пользователем фильмы
-module.exports.getMovie = (req, res) => {
+module.exports.getMovie = (req, res, next) => {
   Movie.find({})
     .then((movie) => {
 
@@ -61,7 +61,7 @@ module.exports.getMovie = (req, res) => {
 }
 // удаляет сохранённый фильм по id
 
-module.exports.deleteMovie = (req, res) => {
+module.exports.deleteMovie = (req, res, next) => {
   Movie.findByIdAndDelete(req.params._id)
   .then((movie) => {
     if (!movie) {

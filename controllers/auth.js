@@ -46,7 +46,7 @@ module.exports.createUser = (req, res, next) => {
 
 // проверяет переданные в теле почту и пароль
 // и возвращает JWT
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return Auth.findUserByCredentials(email, password)
