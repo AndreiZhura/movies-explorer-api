@@ -6,6 +6,7 @@ const authRouters = require('./routers/auth');
 const userRouter = require('./routers/users');
 const movieRouters = require('./routers/movies');
 const auth  = require('./middlewares/auth');
+const { errors } = require('celebrate');
 const NotFoundError = require('./errors/NotFoundError');
 
 
@@ -26,7 +27,7 @@ app.use('/', userRouter);
 app.use('/', movieRouters);
 
 app.use('*', (req, res, next) => { next(new NotFoundError('Запрашиваемый ресурс не найден')); });
-
+app.use(errors()); // обработчик ошибок celebrate
 app.use((err, req, res, next) => {
   // если у ошибки нет статуса, выставляем 500
   const { statusCode = 500, message } = err;
