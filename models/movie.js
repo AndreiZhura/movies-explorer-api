@@ -48,6 +48,9 @@ const movieScheme = new mongoose.Schema({
   movieId: {
     type: Number,
     required: true,
+    unique: true,
+    minlength: 2,
+    maxlength: 10,
   },
   nameRU: {
     type: String,
