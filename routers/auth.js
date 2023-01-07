@@ -1,4 +1,3 @@
-/* eslint-disable function-paren-newline */
 const authRouters = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 
@@ -13,7 +12,8 @@ authRouters.post(
       name: Joi.string().required().min(2).max(30),
     }),
   }),
-  createUser);
+  createUser,
+);
 
 authRouters.post(
   '/signin',
@@ -23,6 +23,7 @@ authRouters.post(
       password: Joi.string().required(),
     }),
   }),
-  login);
+  login,
+);
 
 module.exports = authRouters;
