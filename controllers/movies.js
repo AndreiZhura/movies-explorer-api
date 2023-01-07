@@ -50,7 +50,7 @@ module.exports.createMovies = (req, res, next) => {
     });
 };
 
-// возвращает все сохранённые текущим  пользователем фильмы
+// возвращает все фильмы
 
 module.exports.getMovie = (req, res, next) => {
   Movie.find({})

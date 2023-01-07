@@ -1,3 +1,4 @@
+/* eslint-disable function-paren-newline */
 const userRouters = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { updateUserMe, getUsersMe } = require('../controllers/users');
@@ -11,7 +12,6 @@ userRouters.patch(
       name: Joi.string().min(2).max(30),
     }),
   }),
-  updateUserMe,
-);
+  updateUserMe);
 
 module.exports = userRouters;

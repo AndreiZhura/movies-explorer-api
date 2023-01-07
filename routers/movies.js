@@ -1,3 +1,4 @@
+/* eslint-disable function-paren-newline */
 const movieRouters = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const REGEX = require('../constants/constants');
@@ -25,8 +26,8 @@ movieRouters.post(
       nameEN: Joi.string().required(),
     }),
   }),
-  createMovies,
-);
+  createMovies);
+
 movieRouters.delete(
   '/movies/:_id',
   celebrate({
@@ -34,7 +35,6 @@ movieRouters.delete(
       _id: Joi.string().hex().length(24),
     }),
   }),
-  deleteMovie,
-);
+  deleteMovie);
 
 module.exports = movieRouters;
