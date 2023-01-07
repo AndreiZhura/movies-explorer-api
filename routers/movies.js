@@ -15,7 +15,7 @@ movieRouters.post('/movies',celebrate({
     image: Joi.string().required(REGEX),
     trailerLink: Joi.string().required(REGEX),
     thumbnail: Joi.string().required(REGEX),
-    movieId: Joi.string().required(),
+    movieId: Joi.string().required().min(2).max(10),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),

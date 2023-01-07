@@ -8,7 +8,9 @@ const movieRouters = require('./routers/movies');
 const auth  = require('./middlewares/auth');
 const { errors } = require('celebrate');
 const NotFoundError = require('./errors/NotFoundError');
-const { requestLogger, errorLogger } = require('./middlewares/logger')
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+
+/*api.andreizhura-diplom.nomoredomains.club*/
 
 
 const { PORT = 3000, BASE_PATH } = process.env;
