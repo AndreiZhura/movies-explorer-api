@@ -37,8 +37,7 @@ module.exports.createMovies = (req, res, next) => {
     nameEN,
   })
     .then((movie) => {
-      res.status(200)
-        .send({ data: movie });
+      res.status(200).send({ data: movie });
     })
 
     .catch((err) => {
@@ -64,15 +63,14 @@ module.exports.getMovie = (req, res, next) => {
 // удаляет сохранённый фильм по id
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findByIdAndDelete(req.params._id)
+  Movie.findById(req.params._id)
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError('Данного фильма не существует');
       } else if (!movie.owner.equals(req.user._id)) {
         throw new Forbidden('попытка удалить фильм другово пользователя');
-      } else {
-        return movie.remove().then(() => res.status(200).send(movie));
       }
+      return movie.remove().then(() => res.status(200).send(movie));
     })
     .catch((err) => {
       if (err.name === 'CastError') {

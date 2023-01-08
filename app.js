@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+// Mongoose - это инструмент моделирования объектов MongoDB,
+// предназначенный для работы в асинхронной среде. Мангуст поддерживает Node.js и Дено (альфа).
 const bodyParser = require('body-parser');
+// Сборка пакетов: body-parser
 const { errors } = require('celebrate');
 const authRouters = require('./routers/auth');
 const userRouter = require('./routers/users');
@@ -14,13 +17,15 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+mongoose.set('strictQuery', true);
+mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
+
+app.use(bodyParser.json()); // для собирания JSON-формата
+app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
+/* Аргументом методу bodyParser.urlencoded мы передаём объект опций.
+ "extended: true" означает, что данные в полученном объекте body могут быть любых типов. */
 
 app.use(requestLogger);
-
-mongoose.connect('mongodb://localhost:27017/diplomdb');
-mongoose.set('strictQuery', true);
 
 app.use('/', authRouters);
 app.use(auth);
