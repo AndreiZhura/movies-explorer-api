@@ -6,36 +6,7 @@ const ErrorCode = require('../errors/ErrorCode');
 // country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail,
 // movieId
 module.exports.createMovies = (req, res, next) => {
-  const owner = req.user._id;
-
-  const {
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN,
-  } = req.body;
-
-  Movie.create({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    owner,
-    movieId,
-    nameRU,
-    nameEN,
-  })
+  Movie.create({ ...req.body, owner: req.user._id })
     .then((movie) => {
       res.status(200).send({ data: movie });
     })
@@ -52,7 +23,9 @@ module.exports.createMovies = (req, res, next) => {
 // возвращает все фильмы
 
 module.exports.getMovie = (req, res, next) => {
-  Movie.find({})
+  const owner = req.user._id;
+
+  Movie.find({ owner })
     .then((movie) => {
       res.status(200).send({ data: movie });
     })
