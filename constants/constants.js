@@ -3,4 +3,27 @@ module.exports.SALT_ROUND = 10;
 /// jwt
 module.exports.SECRET_KEY_JWT = 'some-secret-key';
 
+module.exports.DATABASE_ADRESS = 'mongodb://localhost:27017/bitfilmsdb';
+
 module.exports.REGEX = /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-/])*)?/;
+
+// констаны ошибок
+const THIS_USER_ALREADY_EXISTS = 'Такой пользователь уже существует!';
+const INCORRECT_DATA_ENTERED = 'Введены некоректные данные';
+const DATA_PROCESSING_ERROR = 'Ошибка обработки данных';
+const THIS_MOVIE_DOES_NOT_EXIST = 'Данного фильма не существует';
+const TRYING_TO_DELETE_ANOTHER_USERS_MOVIE = 'Попытка удалить фильм другово пользователя';
+const INVALID_MOVIE_ID = 'Некорректный _id фильма';
+const THIS_USER_DOES_NOT_EXIST = 'Данного пользователя не существует';
+const AUTHORIZATION_REQUIRED = 'Необходима авторизация';
+
+module.exports = {
+  THIS_USER_ALREADY_EXISTS,
+  INCORRECT_DATA_ENTERED,
+  DATA_PROCESSING_ERROR,
+  THIS_MOVIE_DOES_NOT_EXIST,
+  TRYING_TO_DELETE_ANOTHER_USERS_MOVIE,
+  INVALID_MOVIE_ID,
+  THIS_USER_DOES_NOT_EXIST,
+  AUTHORIZATION_REQUIRED,
+};

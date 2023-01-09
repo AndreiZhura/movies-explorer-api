@@ -5,6 +5,8 @@ const { SALT_ROUND, SECRET_KEY_JWT } = require('../constants/constants');
 const ErrorCode = require('../errors/ErrorCode');
 const Conflict = require('../errors/Conflict');
 
+// КОНСТАНТЫ ОШИБОК
+const { THIS_USER_ALREADY_EXISTS, INCORRECT_DATA_ENTERED } = require('../constants/constants');
 // создаёт пользователя с переданными в теле
 // email, password и name
 module.exports.createUser = (req, res, next) => {
@@ -14,7 +16,7 @@ module.exports.createUser = (req, res, next) => {
   Auth.findOne({ email })
     .then((user) => {
       if (user) {
-        throw new Conflict('Такой пользователь уже существует!');
+        throw new Conflict(THIS_USER_ALREADY_EXISTS);
       }
       return bcrypt.hash(password, SALT_ROUND);
     })
@@ -32,7 +34,7 @@ module.exports.createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new ErrorCode('введены некоректные данные'));
+        next(new ErrorCode(INCORRECT_DATA_ENTERED));
       } else {
         next(err);
       }

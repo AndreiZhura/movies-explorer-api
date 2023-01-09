@@ -1,6 +1,6 @@
 const movieRouters = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const REGEX = require('../constants/constants');
+
 const {
   createMovies,
   getMovie,
@@ -15,12 +15,12 @@ movieRouters.post(
       country: Joi.string().required(),
       director: Joi.string().required(),
       duration: Joi.number().required(),
-      year: Joi.number().required().min(2),
-      description: Joi.string().required().min(2),
-      image: Joi.string().required(REGEX),
-      trailerLink: Joi.string().required(REGEX),
-      thumbnail: Joi.string().required(REGEX),
-      movieId: Joi.string().required().min(2).max(10),
+      year: Joi.number().required(),
+      description: Joi.string().required(),
+      image: Joi.string().required(),
+      trailerLink: Joi.string().required(),
+      thumbnail: Joi.string().required(),
+      movieId: Joi.string().required(),
       nameRU: Joi.string().required(),
       nameEN: Joi.string().required(),
     }),
