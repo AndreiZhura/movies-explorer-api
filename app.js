@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 // Сборка пакетов: body-parser
 const { errors } = require('celebrate');
+const helmet = require('helmet');
 const authRouters = require('./routers/auth');
 const userRouter = require('./routers/users');
 const movieRouters = require('./routers/movies');
@@ -20,6 +21,9 @@ const app = express();
 
 mongoose.set('strictQuery', true);
 mongoose.connect(DATABASE_ADRESS);
+
+app.use(helmet());
+app.disable('x-powered-by');
 
 app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса

@@ -3,7 +3,7 @@ module.exports.SALT_ROUND = 10;
 /// jwt
 module.exports.SECRET_KEY_JWT = 'some-secret-key';
 
-module.exports.DATABASE_ADRESS = 'mongodb://localhost:27017/bitfilmsdb';
+const DATABASE_ADRESS = 'mongodb://localhost:27017/bitfilmsdb';
 
 module.exports.REGEX = /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-/])*)?/;
 
@@ -16,7 +16,7 @@ const TRYING_TO_DELETE_ANOTHER_USERS_MOVIE = 'Попытка удалить фи
 const INVALID_MOVIE_ID = 'Некорректный _id фильма';
 const THIS_USER_DOES_NOT_EXIST = 'Данного пользователя не существует';
 const AUTHORIZATION_REQUIRED = 'Необходима авторизация';
-
+// errors
 module.exports = {
   THIS_USER_ALREADY_EXISTS,
   INCORRECT_DATA_ENTERED,
@@ -26,4 +26,9 @@ module.exports = {
   INVALID_MOVIE_ID,
   THIS_USER_DOES_NOT_EXIST,
   AUTHORIZATION_REQUIRED,
+};
+
+// data base
+module.exports = {
+  DATABASE_ADRESS,
 };

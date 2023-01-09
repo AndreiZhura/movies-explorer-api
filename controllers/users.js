@@ -13,7 +13,7 @@ module.exports.updateUserMe = (req, res, next) => {
     )
     .then((user) => {
       if (!user) {
-        throw new NotFoundError(THIS_USER_DOES_NOT_EXIST);
+        throw new NotFoundError('THIS_USER_DOES_NOT_EXIST');
       }
       return res.status(200).send({ data: user });
     })
