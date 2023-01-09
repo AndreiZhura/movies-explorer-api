@@ -6,14 +6,10 @@ const bodyParser = require('body-parser');
 // Сборка пакетов: body-parser
 const { errors } = require('celebrate');
 const helmet = require('helmet');
-const authRouters = require('./routers/auth');
-const userRouter = require('./routers/users');
-const movieRouters = require('./routers/movies');
-const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DATABASE_ADRESS } = require('./constants/constants');
-
+const routes = require('./routers/index');
 //  api.andreizhura-diplom.nomoredomains.club
 
 const { PORT = 3000 } = process.env;
@@ -32,10 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // для приёма ве�
 
 app.use(requestLogger);
 
-app.use('/', authRouters);
-app.use(auth);
-app.use('/', userRouter);
-app.use('/', movieRouters);
+app.use('/', routes);
 
 app.use(errorLogger); // подключаем логгер ошибок
 
