@@ -10,6 +10,8 @@ const INVALID_MOVIE_ID = 'Некорректный _id фильма';
 const THIS_USER_DOES_NOT_EXIST = 'Данного пользователя не существует';
 const AUTHORIZATION_REQUIRED = 'Необходима авторизация';
 const WRONG_EMAIL_OR_PASSWORD = 'Неправильные почта или пароль';
+const THE_REQUESTED_RESOURCE_IS_NOT_FOUND = 'Запрашиваемый ресурс не найден';
+const SERVER_ERROR_MESSAGE = 'На сервере произошла ошибка';
 // errors
 module.exports = {
   THIS_USER_ALREADY_EXISTS,
@@ -22,6 +24,8 @@ module.exports = {
   AUTHORIZATION_REQUIRED,
   WRONG_EMAIL_OR_PASSWORD,
   DATABASE_ADRESS,
+  THE_REQUESTED_RESOURCE_IS_NOT_FOUND,
+  SERVER_ERROR_MESSAGE,
 };
 
 module.exports.SALT_ROUND = 10;
