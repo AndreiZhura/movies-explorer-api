@@ -10,11 +10,11 @@ module.exports.updateUserMe = (req, res, next) => {
       { email, name },
       { new: true, runValidators: true },
     )
-    .then((cards) => {
-      if (!cards) {
+    .then((user) => {
+      if (!user) {
         throw new NotFoundError('Данного пользователя не существует');
       }
-      return res.status(200).send({ data: cards });
+      return res.status(200).send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

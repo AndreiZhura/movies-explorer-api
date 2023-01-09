@@ -9,12 +9,9 @@ const Conflict = require('../errors/Conflict');
 // email, password и name
 module.exports.createUser = (req, res, next) => {
   // хешируем пароль
-  const {
-    email, password, name,
-  } = req.body;
+  const { email, password, name } = req.body;
 
-  Auth
-    .findOne({ email })
+  Auth.findOne({ email })
     .then((user) => {
       if (user) {
         throw new Conflict('Такой пользователь уже существует!');
@@ -25,7 +22,6 @@ module.exports.createUser = (req, res, next) => {
       email,
       password: hash, // записываем хеш в базу
       name,
-
     }))
     .then((user) => {
       res.status(201).send({

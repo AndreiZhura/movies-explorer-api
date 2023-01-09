@@ -47,7 +47,7 @@ module.exports.deleteMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        throw new Forbidden('Ошибка обработки данных');
+        throw new ErrorCode('Некорректный _id фильма');
       } else {
         next(err);
       }
