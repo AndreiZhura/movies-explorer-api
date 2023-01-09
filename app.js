@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DATABASE_ADRESS } = require('./constants/constants');
 const routes = require('./routers/index');
+const { apiRequestLimiter } = require('./riteLimited/riteLimited');
 //  api.andreizhura-diplom.nomoredomains.club
 const {
   SERVER_ERROR,
@@ -28,7 +29,7 @@ app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
 /* Аргументом методу bodyParser.urlencoded мы передаём объект опций.
  "extended: true" означает, что данные в полученном объекте body могут быть любых типов. */
-
+app.use(apiRequestLimiter);
 app.use('/', routes);
 
 app.use(errors()); // обработчик ошибок celebrate
