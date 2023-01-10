@@ -1,4 +1,3 @@
-// констаны ошибок
 const THIS_USER_ALREADY_EXISTS = 'Такой пользователь уже существует!';
 const INCORRECT_DATA_ENTERED = 'Введены некоректные данные';
 const DATA_PROCESSING_ERROR = 'Ошибка обработки данных';

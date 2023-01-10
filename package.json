@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "npx eslint .",
-    "build": "webpack --mode production"
+    "lint": "npx eslint ."
   },
   "repository": {
     "type": "git",

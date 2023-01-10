@@ -7,9 +7,11 @@ const bodyParser = require('body-parser');
 // Сборка пакетов: body-parser
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+// const DATABASE_ADRESS = require('./constants/constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routers/index');
 const { apiRequestLimiter } = require('./riteLimited/riteLimited');
+
 //  api.andreizhura-diplom.nomoredomains.club
 const {
   SERVER_ERROR,
@@ -41,4 +43,7 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate
 app.use(SERVER_ERROR);
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log('Ссылка на сервер:');
+  console.log(process.env);
+});

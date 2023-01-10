@@ -1,10 +1,10 @@
+const { SECRET_KEY_JWT } = process.env;
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем модуль jsonwebtoken
 const Auth = require('../models/user');
-const { SALT_ROUND, SECRET_KEY_JWT } = require('../constants/constants');
+const { SALT_ROUND } = require('../constants/constants');
 const ErrorCode = require('../errors/ErrorCode');
 const Conflict = require('../errors/Conflict');
-
 // КОНСТАНТЫ ОШИБОК
 const { THIS_USER_ALREADY_EXISTS, INCORRECT_DATA_ENTERED } = require('../constants/constants');
 // создаёт пользователя с переданными в теле
