@@ -1,5 +1,5 @@
+const { SECRET_KEY_JWT } = process.env;
 const jwt = require('jsonwebtoken');
-const { SECRET_KEY_JWT } = require('../constants/constants');
 const AuthorizationRequired = require('../errors/AuthorizationRequired');
 const { AUTHORIZATION_REQUIRED } = require('../constants/constants');
 
