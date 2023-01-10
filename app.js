@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 // Mongoose - это инструмент моделирования объектов MongoDB,
@@ -7,7 +8,6 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { DATABASE_ADRESS } = require('./constants/constants');
 const routes = require('./routers/index');
 const { apiRequestLimiter } = require('./riteLimited/riteLimited');
 //  api.andreizhura-diplom.nomoredomains.club
@@ -16,7 +16,7 @@ const {
   NOT_FOUND_ERROR,
 } = require('./middlewares/errors');
 
-const { PORT = 3000 } = process.env;
+const { PORT, DATABASE_ADRESS } = process.env;
 const app = express();
 
 mongoose.set('strictQuery', true);

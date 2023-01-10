@@ -1,5 +1,3 @@
-const DATABASE_ADRESS = 'mongodb://localhost:27017/bitfilmsdb';
-
 // констаны ошибок
 const THIS_USER_ALREADY_EXISTS = 'Такой пользователь уже существует!';
 const INCORRECT_DATA_ENTERED = 'Введены некоректные данные';
@@ -12,6 +10,7 @@ const AUTHORIZATION_REQUIRED = 'Необходима авторизация';
 const WRONG_EMAIL_OR_PASSWORD = 'Неправильные почта или пароль';
 const THE_REQUESTED_RESOURCE_IS_NOT_FOUND = 'Запрашиваемый ресурс не найден';
 const SERVER_ERROR_MESSAGE = 'На сервере произошла ошибка';
+
 // errors
 module.exports = {
   THIS_USER_ALREADY_EXISTS,
@@ -23,13 +22,10 @@ module.exports = {
   THIS_USER_DOES_NOT_EXIST,
   AUTHORIZATION_REQUIRED,
   WRONG_EMAIL_OR_PASSWORD,
-  DATABASE_ADRESS,
   THE_REQUESTED_RESOURCE_IS_NOT_FOUND,
   SERVER_ERROR_MESSAGE,
 };
 
 module.exports.SALT_ROUND = 10;
-/// jwt
-module.exports.SECRET_KEY_JWT = 'some-secret-key';
 
 module.exports.REGEX = /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-/])*)?/;
