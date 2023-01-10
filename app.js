@@ -18,7 +18,7 @@ const {
   NOT_FOUND_ERROR,
 } = require('./middlewares/errors');
 
-const { PORT, DATABASE_ADRESS } = process.env;
+const { PORT = '3000', DATABASE_ADRESS = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
 const app = express();
 
 mongoose.set('strictQuery', true);
