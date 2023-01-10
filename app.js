@@ -11,14 +11,13 @@ const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routers/index');
 const { apiRequestLimiter } = require('./riteLimited/riteLimited');
-
+const { PORT, DATABASE_ADRESS } = require('./constants/constants');
 //  api.andreizhura-diplom.nomoredomains.club
 const {
   SERVER_ERROR,
   NOT_FOUND_ERROR,
 } = require('./middlewares/errors');
 
-const { PORT, DATABASE_ADRESS } = process.env;
 const app = express();
 
 mongoose.set('strictQuery', true);
