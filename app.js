@@ -18,7 +18,8 @@ const {
   NOT_FOUND_ERROR,
 } = require('./middlewares/errors');
 
-const { PORT, DATABASE_ADRESS } = process.env;
+const { PORT, DATABASE_ADRESS } = require('./constants/constants');
+
 const app = express();
 
 mongoose.set('strictQuery', true);
