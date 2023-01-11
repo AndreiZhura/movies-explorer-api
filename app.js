@@ -33,9 +33,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // для приёма ве�
 /* Аргументом методу bodyParser.urlencoded мы передаём объект опций.
  "extended: true" означает, что данные в полученном объекте body могут быть любых типов. */
 app.use(apiRequestLimiter);
+app.use(requestLogger);
 app.use('/', routes);
 app.use('*', NOT_FOUND_ERROR);
-app.use(requestLogger);
 app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate
 app.use(SERVER_ERROR);
