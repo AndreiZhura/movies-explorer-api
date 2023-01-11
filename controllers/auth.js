@@ -45,7 +45,6 @@ module.exports.createUser = (req, res, next) => {
 // и возвращает JWT
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email, password);
   return Auth.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
@@ -54,7 +53,6 @@ module.exports.login = (req, res, next) => {
         { expiresIn: '7d' },
         // токен будет просрочен через 7 дней после создания
       );
-      console.log(`JWT ${SECRET_KEY_JWT}`);
       res.send({ token });
     })
     .catch((err) => {

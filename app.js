@@ -18,7 +18,7 @@ const {
   NOT_FOUND_ERROR,
 } = require('./middlewares/errors');
 
-const { PORT, DATABASE_ADRESS, SECRET_KEY_JWT } = process.env;
+const { PORT, DATABASE_ADRESS } = process.env;
 const app = express();
 
 mongoose.set('strictQuery', true);
@@ -39,9 +39,4 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate
 app.use(SERVER_ERROR);
 
-app.listen(PORT, () => {
-  // Если всё работает, консоль покажет, какой порт приложение слушает
-  console.log(`App listening on port ${PORT}`);
-  console.log(`App listening on port ${DATABASE_ADRESS}`);
-  console.log(`App listening on port ${SECRET_KEY_JWT}`);
-});
+app.listen(PORT);
