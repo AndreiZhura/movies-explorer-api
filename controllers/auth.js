@@ -1,3 +1,4 @@
+const { SECRET_KEY_JWT, NODE_ENV } = process.env;
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем модуль jsonwebtoken
 const Auth = require('../models/user');
@@ -49,7 +50,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        'some-secret-key',
+        NODE_ENV === 'production' ? SECRET_KEY_JWT : 'dev-secret',
         { expiresIn: '7d' },
         // токен будет просрочен через 7 дней после создания
       );
