@@ -35,9 +35,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // для приёма ве�
 app.use(apiRequestLimiter);
 app.use(requestLogger);
 app.use('/', routes);
+app.use(errorLogger); // подключаем логгер ошибок
 app.use('*', NOT_FOUND_ERROR);
 app.use(SERVER_ERROR);
-app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate
 
 app.listen(PORT);
