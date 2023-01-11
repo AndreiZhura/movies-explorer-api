@@ -1,4 +1,4 @@
-const { SECRET_KEY_JWT } = process.env;
+const { SECRET_KEY_JWT, NODE_ENV } = process.env;
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем модуль jsonwebtoken
 const Auth = require('../models/user');
@@ -45,15 +45,16 @@ module.exports.createUser = (req, res, next) => {
 // и возвращает JWT
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-
+  console.log(email, password);
   return Auth.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        SECRET_KEY_JWT,
+        NODE_ENV === 'production' ? SECRET_KEY_JWT : 'dev-secret',
         { expiresIn: '7d' },
         // токен будет просрочен через 7 дней после создания
       );
+      console.log(`JWT ${SECRET_KEY_JWT}`);
       res.send({ token });
     })
     .catch((err) => {

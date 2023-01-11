@@ -18,7 +18,7 @@ const {
   NOT_FOUND_ERROR,
 } = require('./middlewares/errors');
 
-const { PORT, DATABASE_ADRESS } = process.env;
+const { PORT, DATABASE_ADRESS, SECRET_KEY_JWT } = process.env;
 const app = express();
 
 mongoose.set('strictQuery', true);
@@ -33,12 +33,15 @@ app.use(bodyParser.urlencoded({ extended: true })); // для приёма ве�
  "extended: true" означает, что данные в полученном объекте body могут быть любых типов. */
 app.use(apiRequestLimiter);
 app.use('/', routes);
-
 app.use('*', NOT_FOUND_ERROR);
-
 app.use(requestLogger);
 app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate
 app.use(SERVER_ERROR);
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  // Если всё работает, консоль покажет, какой порт приложение слушает
+  console.log(`App listening on port ${PORT}`);
+  console.log(`App listening on port ${DATABASE_ADRESS}`);
+  console.log(`App listening on port ${SECRET_KEY_JWT}`);
+});
