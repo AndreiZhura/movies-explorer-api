@@ -37,7 +37,7 @@ app.use(requestLogger);
 app.use('/', routes);
 app.use(errorLogger); // подключаем логгер ошибок
 app.use('*', NOT_FOUND_ERROR);
-app.use(SERVER_ERROR);
 app.use(errors()); // обработчик ошибок celebrate
+app.use(SERVER_ERROR);
 
 app.listen(PORT);
