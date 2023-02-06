@@ -3,11 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 // Mongoose - это инструмент моделирования объектов MongoDB,
 // предназначенный для работы в асинхронной среде. Мангуст поддерживает Node.js и Дено (альфа).
+const cors = require('cors');
 const bodyParser = require('body-parser');
 // Сборка пакетов: body-parser
 const { errors } = require('celebrate');
 const helmet = require('helmet');
-const cors = require('cors');
 // const DATABASE_ADRESS = require('./constants/constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routers/index');
@@ -35,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // для приёма ве�
  "extended: true" означает, что данные в полученном объекте body могут быть любых типов. */
 app.use(apiRequestLimiter);
 app.use(requestLogger);
+
 const options = {
   origin: [
     'https://api.andreizhura-diplom.nomoredomains.club',
