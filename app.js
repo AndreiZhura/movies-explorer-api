@@ -37,10 +37,8 @@ app.use(apiRequestLimiter);
 app.use(requestLogger);
 const options = {
   origin: [
-    'https://andreizhura.nomoredomains.club',
-    'https://api.andreizhura.nomoredomains.club',
-    'http://andreizhura.nomoredomains.club',
-    'http://api.andreizhura.nomoredomains.club',
+    'https://api.andreizhura-diplom.nomoredomains.club',
+    'http://api.andreizhura-diplom.nomoredomains.club',
     'https://localhost:3000',
     'http://localhost:3000',
     'https://localhost:3001',
@@ -52,7 +50,6 @@ const options = {
   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
   credentials: true,
 };
-
 app.use(cors(options));
 // роуты, не требующие авторизации,
 // например, регистрация и логин
