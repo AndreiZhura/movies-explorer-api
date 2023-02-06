@@ -36,7 +36,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // для приёма ве�
 app.use(apiRequestLimiter);
 app.use(requestLogger);
 
-/*
 const options = {
   origin: [
     'https://api.andreizhura-diplom.nomoredomains.club',
@@ -52,8 +51,7 @@ const options = {
   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
   credentials: true,
 };
-*/
-app.use(cors());
+app.use(cors(options));
 // роуты, не требующие авторизации,
 // например, регистрация и логин
 
