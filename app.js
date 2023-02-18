@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 // const DATABASE_ADRESS = require('./constants/constants');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routers/index');
 const { apiRequestLimiter } = require('./riteLimited/riteLimited');
@@ -34,6 +35,28 @@ app.use(bodyParser.urlencoded({ extended: true })); // для приёма ве�
  "extended: true" означает, что данные в полученном объекте body могут быть любых типов. */
 app.use(apiRequestLimiter);
 app.use(requestLogger);
+
+const options = {
+  origin: [
+    'https://api.andreizhura-diplom.nomoredomains.club',
+    'http://api.andreizhura-diplom.nomoredomains.club',
+    'https://andreizhura-diplom.no.nomoredomains.work',
+    'http://andreizhura-diplom.no.nomoredomains.work',
+    'https://localhost:3000',
+    'http://localhost:3000',
+    'https://localhost:3001',
+    'http://localhost:3001',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+app.use(cors(options));
+// роуты, не требующие авторизации,
+// например, регистрация и логин
+
 app.use('/', routes);
 app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate
