@@ -40,6 +40,8 @@ const options = {
   origin: [
     'https://api.andreizhura-diplom.nomoredomains.club',
     'http://api.andreizhura-diplom.nomoredomains.club',
+    'https://andreizhura-diplom.no.nomoredomains.work',
+    'http://andreizhura-diplom.no.nomoredomains.work',
     'https://localhost:3000',
     'http://localhost:3000',
     'https://localhost:3001',
