@@ -13,14 +13,13 @@ module.exports.updateUserMe = (req, res, next) => {
       { new: true, runValidators: true },
     )
     .then((user) => {
-      if (user) {
-        throw new Conflict(THIS_USER_ALREADY_EXISTS);
-      }
-      return res.status(200).send({ data: user });
+      res.status(200).send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ErrorCode(DATA_PROCESSING_ERROR));
+      } else if (err.codeName === 'DuplicateKey') {
+        next(new Conflict(THIS_USER_ALREADY_EXISTS));
       } else {
         next(err);
       }
