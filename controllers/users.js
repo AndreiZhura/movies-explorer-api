@@ -1,7 +1,8 @@
 const User = require('../models/user');
 const NotFoundError = require('../errors/NotFoundError');
 const ErrorCode = require('../errors/ErrorCode');
-const { THIS_USER_DOES_NOT_EXIST, DATA_PROCESSING_ERROR } = require('../constants/constants');
+const Conflict = require('../errors/Conflict');
+const { THIS_USER_DOES_NOT_EXIST, DATA_PROCESSING_ERROR, THIS_USER_ALREADY_EXISTS } = require('../constants/constants');
 
 module.exports.updateUserMe = (req, res, next) => {
   const { email, name } = req.body;
@@ -12,8 +13,8 @@ module.exports.updateUserMe = (req, res, next) => {
       { new: true, runValidators: true },
     )
     .then((user) => {
-      if (!user) {
-        throw new NotFoundError(THIS_USER_DOES_NOT_EXIST);
+      if (user) {
+        throw new Conflict(THIS_USER_ALREADY_EXISTS);
       }
       return res.status(200).send({ data: user });
     })
